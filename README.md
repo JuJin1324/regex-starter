@@ -153,22 +153,22 @@
 > All matches: `aab`c `ab`c `b`c  
 > 
 > 응용 1) 모든 문자 매칭  
-> Source: -@-***--"*"--***-@-  
+> Source: -@-+++--"+"--+++-@-  
 > Regex: `.*`  
-> First match: `-@-***--"*"--***-@-`  
-> All matches: `-@-***--"*"--***-@-`  
+> First match: `-@-+++--"+"--+++-@-`  
+> All matches: `-@-+++--"+"--+++-@-`  
 >
 > 응용 2) - 사이에 A 가 0개 이상 등장하면 매칭     
-> Source: -@-***--"*"--***-@-  
+> Source: -@-+++--"+"--+++-@-  
 > Regex: `-A*-`  
-> First match: -@-***`--`"*"--***-@-  
-> All matches: -@-***`--`"*"`--`***-@-  
+> First match: -@-+++`--`"+"--+++-@-  
+> All matches: -@-+++`--`"+"`--`+++-@-  
 >
 > 응용 3) - 또는 @ 가 0개 이상 등장하면 매칭       
-> Source: -@-***--"*"--***-@-  
+> Source: -@-+++--"+"--+++-@-  
 > Regex: `[-@]*`  
-> First match: `-@-`***--"*"--***-@-  
-> All matches: `-@-`***`--`"*"`--`***`-@-`  
+> First match: `-@-`+++--"+"--+++-@-  
+> All matches: `-@-`+++`--`"+"`--`+++`-@-`  
 > 
 > `x+`: + 앞에 x 가 1개 이상 등장하면 매칭
 > 
@@ -177,6 +177,24 @@
 > Regex: `a+b`  
 > First match: `aab`c abc bc  
 > All matches: `aab`c `ab`c bc  
+>
+> 응용 1) 문자 + 가 1개 이상 매칭     
+> Source: -@-+ ++--"+"--+ ++-@-  
+> Regex: `\++`  
+> First match: -@-`+` ++--"*"--+ ++-@-  
+> All matches: -@-`+` `++`--"`+`"--`+` `++`-@-
+>
+> 응용 2) - 사이 문자 @가 1개 이상 매칭     
+> Source: -@@@-+ ++--"+"--+++-@@@-  
+> Regex: `-@+-`  
+> First match: `-@@@-`+ ++--"+"--+++-@@@-  
+> All matches: `-@@@-`+ ++--"+"--+++`-@@@-`  
+>
+> 응용 3) 공백이 아닌 것이 1개 이상 매칭       
+> Source: -@@@-+ ++--"+"--+++-@@@-  
+> Regex: `[^ ]+`  
+> First match: `-@@@-` + ++ - - "+" -- + ++ -@@@-  
+> All matches: `-@@@-` `+` `++` `-` `-` `"+"` `--` `+` `++` `-@@@-`  
 > 
 > `x?`: ? 앞에 x 가 0개 이거나 1개인 경우 매칭  
 >
@@ -185,5 +203,99 @@
 > Regex: `a?b`  
 > First match: a`ab`c abc bc  
 > All matches: a`ab`c `ab`c `b`c  
+>
+> 응용 1) - 뒤에 X 가 0개 이거나 1개, 그 다음엔 X 가 오고, 다음 X 가 0개 이거나 1개, 그 다음엔 X 가 와야 매칭  
+> 즉, -XX, -XXX, -XXXX 매칭  
+> Source: --XX-@-XX-@@-XX-@@@-XX-@@@@-  
+> Regex: `-X?XX?X`  
+> First match: -`-XX`-@-XX-@@-XX-@@@-XX-@@@@-  
+> All matches: -`-XX`-@`-XX`-@@`-XX`-@@@`-XX`-@@@@-  
+>
+> 응용 2) - 뒤에 @ 가 0개 이거나 1개, 그 다음 @ 가 0개 이거나 1개, 그 다음 @ 가 0개 이거나 1개, 그 다음에 - 가 와야 매칭  
+> 즉, --, -@-, -@@-, -@@@- 매칭  
+> Source: --XX-@-XX-@@-XX-@@@-XX-@@@@-  
+> Regex: `-@?@?@?-`  
+> First match: `--`XX-@-XX-@@-XX-@@@-XX-@@@@-  
+> All matches: `--`XX`-@-`XX`-@@-`XX`-@@@-`XX-@@@@-  
 
+### 수량자(Quantifier) 2
+> `.{숫자}`: 와일드카드 문자가 5개 매칭  
+> 
+> 예시)  
+> Source: One ring to bring them all and in the darkness bind them  
+> Regex: `.{5}`    
+> First match: `One r`ing to bring them all and in the darkness bind them    
+> All matches: `One ring to bring them all and in the darkness bind the`m    
+> 
+> `[]{숫자1, 숫자2}`: [] 범위의 문자가 숫자1 개 이상 숫자2 개 이하로 등장하면 매칭  
+> 
+> 예시)    
+> Source: One ring to bring them all and in the darkness bind them    
+> Regex: `[els]{1,3}`      
+> First match: On`e` ring to bring them all and in the darkness bind them      
+> All matches: On`e` ring to bring th`e`m a`ll` and in th`e` darkn`ess` bind th`e`m   
+> 
+> 응용 1) 소문자 알파벳이 3개 이상 등장하면 매칭  
+> Source: One ring to bring them all and in the darkness bind them    
+> Regex: `[a-z]{3,}`      
+> First match: One `ring` to bring them all and in the darkness bind them      
+> All matches: One `ring` to `bring` `them` `all` `and` in `the` `darkness` `bind` `them`   
+> 
+> `x+` 는 `x{1,}` 과 같다.  
+> 예시) `AB+A` 는 `AB{1,}A` 와 같다.  
+> 
+> `x*` 는 `x{0,}` 과 같다.  
+> 예시) `AB*A` 는 `AB{0,}A` 와 같다.  
+> 
+> `x?` 는 `x{0,1}` 과 같다.  
+> 예시) `AB?A` 는 `AB{0,1}A` 와 같다.  
+> 
+> `문자.*`: 해당 문자 뒤 전체를 매칭  
+> 
+> 예시)   
+> Source: One ring to bring them all and in the darkness bind them    
+> Regex: `r.*`      
+> First match: One r`ing to bring them all and in the darkness bind them`      
+> All matches: One r`ing to bring them all and in the darkness bind them`   
+> 
+> `x*?`: 수량자 뒤에 ? 가 오게되면 해당 수량자의 가장 적은 갯수에 매칭되도록 의미가 변한다.  
+> 
+> 응용 1) `r.*?`: r 뒤에 와일드카드가 0개와야 매칭, 즉 r 만 매칭       
+> Source: One ring to bring them all and in the darkness bind them    
+> Regex: `r.*?`      
+> First match: One `r`ing to bring them all and in the darkness bind them      
+> All matches: One `r`ing to b`r`ing them all and in the da`r`kness bind them   
+> 
+> 응용 2) `r.+?`: r 뒤에 와일드카드가 1개와야 매칭, 즉 r<문자 1개> 만 매칭  
+> Regex: `r.+?`      
+> First match: One `ri`ng to bring them all and in the darkness bind them      
+> All matches: One `ri`ng to b`ri`ng them all and in the da`rk`ness bind them   
+>
+> 응용 2) `r.??`: r 뒤에 와일드카드가 0개와야 매칭, 즉 r 만 매칭  
+> Regex: `r.??`      
+> First match: One `r`ing to bring them all and in the darkness bind them      
+> All matches: One `r`ing to b`r`ing them all and in the da`r`kness bind them   
 
+### 경계
+> `\w`: `[A-z0-9_]` 와 같다. 즉 대소문자와 숫자 그리고 언더스코어를 포함.(w 는 word 를 의미)  
+> `\W`: not word 즉 워드가 아닌 것과 같다.  
+> `\d`: `[0-9]` 와 같다.  
+> `\D`: not digit 숫자가 아님.  
+> `[A-z]`: 대소문자를 모두 포함한 범위.  
+
+### Assertions
+> `(?=x)`: x 가 포함된 문자열을 찾지만 x 는 매칭에 포함되지 않는다.  
+> 
+> 예시)  
+> Source: AAAX---aaax---111    
+> Regex: `\w+(?=X)`      
+> First match: `AAA`X---aaax---111      
+> All matches: `AAA`X---aaax---111   
+> 
+> 응용) word 가 1개 이상인 경우, 뒤 끝의 글자가 word 인 경우 매칭, 하지만 뒤의 글자는 매칭에서 제외     
+> Source: AAAX---aaax---111    
+> Regex: `\w+(?=\w)`      
+> First match: `AAA`X---aaax---111      
+> All matches: `AAA`X---`aaa`x---`11`1   
+ 
+ 
