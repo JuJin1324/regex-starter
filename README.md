@@ -10,13 +10,13 @@
 > First match: `Hello`, world! Hello!    
 > All matches: `Hello`, world! `Hello`!    
 >
-> Source: Hello, world! Hello! 
+> Source: Hello, world! Hello!  
 > Regex: hello  
 > First match: Hello, world! Hello!    
 > All matches: Hello, world! Hello!
 
 ### 위치
-> `^x` 는 시작 문자가 x 인 경우만 찾는다.
+> `^x` 는 시작 문자가 x 인 경우만 찾는다.  
 > Source: who is who  
 > Regex: ^who  
 > First match: `who` is who  
@@ -35,28 +35,28 @@
  
 ### 이스케이핑
 > `^` 이나 `$` 와 같이 정규표현식에서 사용되는 문자가 찾으려는 텍스트인 경우 앞에 `\`(역슬래쉬)를 붙여서 정규표현식이 아닌 문자라는 것을 표현한다.  
-> Source: $12$\-\$25$  
+> Source: `$12$\-\$25$`  
 > Regex: ^$  
-> First match: $12$\-\$25$  
-> All matches: $12$\-\$25$  
+> First match: `$12$\-\$25$`  
+> All matches: `$12$\-\$25$`  
 >
-> Source: $12$\-\$25$  
-> Regex: \$   
+> Source: `$12$\-\$25$`  
+> Regex: `\$`   
 > First match: `$`12$\-\$25$    
 > All matches: `$`12`$`\-\`$`25`$`  
 >
-> Source: $12$\-\$25$  
-> Regex: ^\$  
+> Source: `$12$\-\$25$`  
+> Regex: `^\$`  
 > First match: `$`12$\-\$25$  
 > All matches: `$`12$\-\$25$  
 >
-> Source: $12$\-\$25$  
-> Regex: \$$  
+> Source: `$12$\-\$25$`  
+> Regex: `\$$`  
 > First match: $12$\-\$25`$`  
 > All matches: $12$\-\$25`$`  
 >
-> Source: $12$\-\$25$  
-> Regex: \\  
+> Source: `$12$\-\$25$`  
+> Regex: `\\`  
 > First match: $12$`\`-\$25$  
 > All matches: $12$`\`-`\`$25$
 
@@ -75,7 +75,7 @@
 >
 > **이스케이핑**  
 > Source: O.K.  
-> Regex: \.  
+> Regex: `\.`  
 > First match: O`.`K.  
 > All matches: O`.`K`.`  
 
