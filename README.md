@@ -1,6 +1,9 @@
 # regex-starter
 > 정규표현식
 
+## 디버깅 사이트
+> 링크: https://regex101.com
+
 ## 패턴
 ### 기본 패턴
 > 정규표현식의 기본 패턴은 문자를 그대로 사용하는 것이다.  
@@ -249,14 +252,6 @@
 > 
 > `x?` 는 `x{0,1}` 과 같다.  
 > 예시) `AB?A` 는 `AB{0,1}A` 와 같다.  
-> 
-> `문자.*`: 해당 문자 뒤 전체를 매칭  
-> 
-> 예시)   
-> Source: One ring to bring them all and in the darkness bind them    
-> Regex: `r.*`      
-> First match: One r`ing to bring them all and in the darkness bind them`      
-> All matches: One r`ing to bring them all and in the darkness bind them`   
 > 
 > `x*?`: 수량자 뒤에 ? 가 오게되면 해당 수량자의 가장 적은 갯수에 매칭되도록 의미가 변한다.  
 > 
